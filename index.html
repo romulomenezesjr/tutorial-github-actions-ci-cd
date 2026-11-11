@@ -139,6 +139,7 @@ th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px sol
 th{background:var(--bg-soft);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
 tr:last-child td{border-bottom:none}
 td:first-child{font-weight:700;width:30%}
+td code.i{overflow-wrap:normal}
 .checklist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .checklist label{display:flex;gap:12px;align-items:flex-start;cursor:pointer;background:var(--bg-card);border:1px solid var(--line);padding:10px 14px}
 footer.rodape{margin-top:72px;border-top:3px double var(--text);padding-top:14px;font-size:13px;color:var(--text-dim)}
@@ -175,8 +176,8 @@ footer.rodape{margin-top:72px;border-top:3px double var(--text);padding-top:14px
 <aside class="sumario" aria-label="Sumário">
   <p class="sum-tit">Sumário</p>
   <div class="prog">
-    <div class="prog-bar" role="progressbar" aria-label="Atividades concluídas" aria-valuemin="0" aria-valuemax="11" aria-valuenow="0" id="prog-bar"><span id="prog-fill"></span></div>
-    <p id="prog-txt">0 de 11 atividades concluídas</p>
+    <div class="prog-bar" role="progressbar" aria-label="Atividades concluídas" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" id="prog-bar"><span id="prog-fill"></span></div>
+    <p id="prog-txt">0 de 12 atividades concluídas</p>
   </div>
   <nav><ol>
     <li><a href="#s00" data-sec="s00"><span class="n">00</span><span>Antes de começar</span></a></li>
@@ -187,12 +188,13 @@ footer.rodape{margin-top:72px;border-top:3px double var(--text);padding-top:14px
     <li><a href="#s05" data-sec="s05"><span class="n">05</span><span>Badge no README</span></a></li>
     <li><a href="#s06" data-sec="s06"><span class="n">06</span><span>Matriz de testes</span></a></li>
     <li><a href="#s07" data-sec="s07"><span class="n">07</span><span>Lint com ESLint</span></a></li>
-    <li><a href="#s08" data-sec="s08"><span class="n">08</span><span>Proteger a main</span></a></li>
-    <li><a href="#s09" data-sec="s09"><span class="n">09</span><span>Segredos e variáveis</span></a></li>
-    <li><a href="#s10" data-sec="s10"><span class="n">10</span><span>Deploy no Pages</span></a></li>
-    <li><a href="#s11" data-sec="s11"><span class="n">11</span><span>Endurecer o pipeline</span></a></li>
-    <li><a href="#s12" data-sec="s12"><span class="n">12</span><span>Erros comuns</span></a></li>
-    <li><a href="#s13" data-sec="s13"><span class="n">13</span><span>Checklist e entrega</span></a></li>
+    <li><a href="#s08" data-sec="s08"><span class="n">08</span><span>Formatação com Prettier</span></a></li>
+    <li><a href="#s09" data-sec="s09"><span class="n">09</span><span>Proteger a main</span></a></li>
+    <li><a href="#s10" data-sec="s10"><span class="n">10</span><span>Segredos e variáveis</span></a></li>
+    <li><a href="#s11" data-sec="s11"><span class="n">11</span><span>Deploy no Pages</span></a></li>
+    <li><a href="#s12" data-sec="s12"><span class="n">12</span><span>Endurecer o pipeline</span></a></li>
+    <li><a href="#s13" data-sec="s13"><span class="n">13</span><span>Erros comuns</span></a></li>
+    <li><a href="#s14" data-sec="s14"><span class="n">14</span><span>Checklist e entrega</span></a></li>
   </ol></nav>
   <button id="zerar" type="button">Zerar progresso</button>
 </aside>
@@ -204,7 +206,7 @@ footer.rodape{margin-top:72px;border-top:3px double var(--text);padding-top:14px
   <p class="lead">Você vai criar um repositório, escrever um teste, montar um pipeline que roda a cada push e terminar publicando um site automaticamente. Todo código tem botão de copiar.</p>
   <dl class="meta">
     <div><dt>Em aula</dt><dd>Seções 01 a 04 · ~25 min</dd></div>
-    <div><dt>Desafios</dt><dd>Seções 05 a 11 · ~1h20</dd></div>
+    <div><dt>Desafios</dt><dd>Seções 05 a 12 · ~1h40</dd></div>
     <div><dt>Você precisa de</dt><dd>Conta no GitHub e um navegador</dd></div>
     <div><dt>Linguagem</dt><dd>JavaScript, Node.js 22+</dd></div>
   </dl>
@@ -223,7 +225,7 @@ footer.rodape{margin-top:72px;border-top:3px double var(--text);padding-top:14px
     <p>Um projeto pequeno em JavaScript, com uma função e um teste, e em volta dele um pipeline completo:</p>
     <div class="mapa" aria-label="Pipeline final">
       <span class="etapa">push ou pull request</span><span class="seta">→</span>
-      <span class="etapa">lint</span><span class="seta">→</span>
+      <span class="etapa">lint e formatação</span><span class="seta">→</span>
       <span class="etapa">testes × 4</span><span class="seta">→</span>
       <span class="etapa">merge na main protegida</span><span class="seta">→</span>
       <span class="etapa fim">deploy no GitHub Pages</span>
@@ -236,9 +238,14 @@ footer.rodape{margin-top:72px;border-top:3px double var(--text);padding-top:14px
 │       ├── ci.yml
 │       ├── pages.yml
 │       └── segredos.yml
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
 ├── site/
 │   └── index.html
 ├── .gitignore
+├── .prettierignore
+├── .prettierrc.json
 ├── eslint.config.js
 ├── package.json
 ├── package-lock.json
@@ -296,7 +303,7 @@ git --version</code></pre></figure>
 nvm use 24</code></pre></figure>
       </li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s01" id="feito-s01"> Concluí a atividade 1</label>
+    <label class="feito"><input type="checkbox" data-done="repo" id="feito-repo"> Concluí a atividade 1</label>
   </div>
   <div class="bloco dica">
     <p class="rot">Dica</p>
@@ -367,7 +374,7 @@ git commit -m "Projeto inicial com função soma e teste"
 git push</code></pre></figure>
       </li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s02" id="feito-s02"> Concluí a atividade 2</label>
+    <label class="feito"><input type="checkbox" data-done="projeto" id="feito-projeto"> Concluí a atividade 2</label>
   </div>
 </section>
 
@@ -417,7 +424,7 @@ git push</code></pre></figure>
       <li><p>Abra a aba Actions do repositório: <a data-href="https://github.com/SEU-USUARIO/ci-exemplo/actions" data-show href="https://github.com/SEU-USUARIO/ci-exemplo/actions">github.com/SEU-USUARIO/ci-exemplo/actions</a>. Clique na execução <b>Adiciona workflow de CI</b>, depois no job <b>testes</b>, e expanda cada step para ler o log. No step <b>Run npm test</b>, procure a linha <code class="i">pass 1</code>.</p></li>
       <li><p>Volte à página inicial do repositório: ao lado do último commit aparece um <b>✓ verde</b>. Esse é o sinal de que o CI passou.</p></li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s03" id="feito-s03"> Concluí a atividade 3</label>
+    <label class="feito"><input type="checkbox" data-done="workflow" id="feito-workflow"> Concluí a atividade 3</label>
   </div>
   <div class="bloco atencao">
     <p class="rot">Atenção</p>
@@ -477,7 +484,7 @@ git push</code></pre></figure>
 git pull</code></pre></figure>
       </li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s04" id="feito-s04"> Concluí a atividade 4</label>
+    <label class="feito"><input type="checkbox" data-done="pr" id="feito-pr"> Concluí a atividade 4</label>
   </div>
   <div class="bloco pensar">
     <p class="rot">Para pensar</p>
@@ -509,7 +516,7 @@ git push</code></pre></figure>
       </li>
       <li><p>Recarregue a <a data-href="https://github.com/SEU-USUARIO/ci-exemplo" href="https://github.com/SEU-USUARIO/ci-exemplo">página do repositório</a>. O badge <b>CI passing</b> aparece no topo do README.</p></li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s05" id="feito-s05"> Concluí a atividade 5</label>
+    <label class="feito"><input type="checkbox" data-done="badge" id="feito-badge"> Concluí a atividade 5</label>
   </div>
 </section>
 
@@ -555,11 +562,11 @@ git push</code></pre></figure>
       </li>
       <li><p>Na aba Actions, abra a execução. Você verá 4 jobs com nomes como <code class="i">testes (ubuntu-latest, 22)</code>. Os de Windows costumam demorar mais.</p></li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s06" id="feito-s06"> Concluí a atividade 6</label>
+    <label class="feito"><input type="checkbox" data-done="matriz" id="feito-matriz"> Concluí a atividade 6</label>
   </div>
   <div class="bloco atencao">
     <p class="rot">Atenção</p>
-    <p>Anote os nomes dos 4 jobs: eles serão usados na seção 08. Em repositórios privados, cada job consome a cota de minutos do plano, e Windows custa mais por minuto que Linux.</p>
+    <p>Anote os nomes dos 4 jobs: eles serão usados na seção 09. Em repositórios privados, cada job consome a cota de minutos do plano, e Windows custa mais por minuto que Linux.</p>
   </div>
 </section>
 
@@ -568,7 +575,7 @@ git push</code></pre></figure>
   <header class="sec-head"><span class="sec-num">07</span><div><p class="kicker"><span class="nivel n-inter">Desafio intermediário</span> 15 min</p><h2>Lint com ESLint, antes dos testes</h2></div></header>
   <div class="bloco">
     <p class="rot">Entenda</p>
-    <p>Um linter lê o código sem executá-lo e aponta erros prováveis, como variáveis que nunca são usadas. Ele é rápido, então deve rodar <b>primeiro</b>: com <code class="i">needs: lint</code>, os 4 jobs de teste só começam se o lint passar. É o princípio de falhar cedo.</p>
+    <p>Um linter lê o código sem executá-lo e aponta erros prováveis, como variáveis que nunca são usadas. Ele é rápido, então deve rodar <b>primeiro</b>: com <code class="i">needs: lint</code>, os 4 jobs de teste só começam se o lint passar. É o princípio de falhar cedo. Na seção 08, você completa essa configuração com o Prettier e algumas regras extras.</p>
   </div>
   <div class="atividade">
     <div class="ativ-tit"><span class="selo">Atividade 7</span><h3>Configurar o ESLint e o job de lint</h3></div>
@@ -658,19 +665,248 @@ git push</code></pre></figure>
       </li>
       <li><p>Na aba Actions, veja o job <b>lint</b> rodar sozinho e, só depois dele, os 4 jobs de teste.</p></li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s07" id="feito-s07"> Concluí a atividade 7</label>
+    <label class="feito"><input type="checkbox" data-done="lint" id="feito-lint"> Concluí a atividade 7</label>
   </div>
 </section>
 
 <!-- ============================================================ 08 -->
 <section class="sec" id="s08">
-  <header class="sec-head"><span class="sec-num">08</span><div><p class="kicker"><span class="nivel n-inter">Desafio intermediário</span> 10 min</p><h2>Proteger a main</h2></div></header>
+  <header class="sec-head"><span class="sec-num">08</span><div><p class="kicker"><span class="nivel n-inter">Desafio intermediário</span> 20 min</p><h2>Formatação com Prettier</h2></div></header>
+  <div class="bloco">
+    <p class="rot">Entenda</p>
+    <p>ESLint e Prettier se complementam, e cada um cuida de uma coisa:</p>
+    <div class="tabela">
+      <table>
+        <tr><th>Ferramenta</th><th>Cuida de</th><th>Exemplos</th></tr>
+        <tr><td>ESLint</td><td>Qualidade: código que provavelmente tem bug</td><td>variável nunca usada, <code class="i">==</code> no lugar de <code class="i">===</code>, <code class="i">var</code></td></tr>
+        <tr><td>Prettier</td><td>Aparência: como o código é escrito na tela</td><td>espaços, aspas, ponto e vírgula, quebras de linha</td></tr>
+      </table>
+    </div>
+    <p>O Prettier não discute estilo: ele reescreve o arquivo sempre do mesmo jeito. Com a configuração no repositório, todo mundo da equipe formata igual, e o code review fica livre de comentários sobre espaços e aspas. No CI, <code class="i">prettier --check</code> falha se algum arquivo não estiver formatado.</p>
+    <p>O pacote <code class="i">eslint-config-prettier</code> desliga as regras de estilo do ESLint que poderiam brigar com o Prettier. Assim, cada ferramenta fica só com o seu papel.</p>
+  </div>
+
+  <div class="bloco">
+    <p class="rot">Sugestão de configuração do Prettier</p>
+    <p>Algumas opções abaixo já são o padrão do Prettier. Elas ficam escritas no arquivo para documentar a decisão da equipe.</p>
+    <div class="tabela">
+      <table>
+        <tr><th>Opção</th><th>Valor</th><th>O que faz</th></tr>
+        <tr><td>semi</td><td><code class="i">true</code></td><td>Ponto e vírgula no fim de cada instrução. É o padrão.</td></tr>
+        <tr><td>singleQuote</td><td><code class="i">true</code></td><td>Aspas simples em JavaScript. O padrão do Prettier é aspas duplas.</td></tr>
+        <tr><td>trailingComma</td><td><code class="i">"all"</code></td><td>Vírgula depois do último item de listas e objetos quebrados em várias linhas: acrescentar um item muda uma linha só no diff. É o padrão.</td></tr>
+        <tr><td>printWidth</td><td><code class="i">100</code></td><td>Largura máxima da linha. O padrão é 80, apertado para telas atuais.</td></tr>
+        <tr><td>tabWidth</td><td><code class="i">2</code></td><td>Dois espaços por nível de indentação. É o padrão.</td></tr>
+        <tr><td>endOfLine</td><td><code class="i">"lf"</code></td><td>Quebra de linha no estilo Linux, mesmo para quem usa Windows. Evita diffs em que todas as linhas parecem alteradas. É o padrão.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="bloco">
+    <p class="rot">Sugestão de regras para o ESLint</p>
+    <p>As regras recomendadas do ESLint são um bom começo. Estas cinco acrescentam boas práticas que costumam pegar erros de iniciante:</p>
+    <div class="tabela">
+      <table>
+        <tr><th>Regra</th><th>O que exige</th><th>Por quê</th></tr>
+        <tr><td>eqeqeq</td><td><code class="i">===</code> e <code class="i">!==</code></td><td>O <code class="i">==</code> converte tipos antes de comparar: <code class="i">0 == ''</code> dá <code class="i">true</code>.</td></tr>
+        <tr><td>no-var</td><td><code class="i">let</code> ou <code class="i">const</code></td><td><code class="i">var</code> vale para a função inteira, não só para o bloco, e causa bugs difíceis de achar.</td></tr>
+        <tr><td>prefer-const</td><td><code class="i">const</code> quando o valor não muda</td><td>Quem lê sabe na hora o que pode mudar e o que não pode.</td></tr>
+        <tr><td>no-console</td><td>Aviso para <code class="i">console.log</code></td><td>Lembra de tirar os logs de depuração. Por ser aviso (<code class="i">warn</code>), não falha o CI.</td></tr>
+        <tr><td>no-unused-vars</td><td>Nenhuma variável sobrando, exceto parâmetros que começam com <code class="i">_</code></td><td>Permite marcar de propósito um parâmetro que a função recebe mas não usa.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="atividade">
+    <div class="ativ-tit"><span class="selo">Atividade 8</span><h3>Instalar o Prettier e afinar o ESLint</h3></div>
+    <ol class="passos">
+      <li><p>Instale o Prettier e o pacote que o integra ao ESLint. O <code class="i">--save-exact</code> grava a versão exata do Prettier: versões novas podem formatar diferente, e assim toda a equipe usa a mesma.</p>
+        <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>npm install --save-dev --save-exact prettier
+npm install --save-dev eslint-config-prettier</code></pre></figure>
+      </li>
+      <li><p>Crie a configuração do Prettier, com as opções sugeridas acima:</p>
+        <figure class="code" data-lang="json"><figcaption><span class="tipo">arquivo</span><span class="nome">.prettierrc.json</span><button class="copiar" type="button" aria-label="Copiar: .prettierrc.json">Copiar</button></figcaption><pre><code>{
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "endOfLine": "lf"
+}</code></pre></figure>
+      </li>
+      <li><p>Crie o <code class="i">.prettierignore</code>. O Prettier já ignora o que está no <code class="i">.gitignore</code>; o lockfile entra aqui porque é escrito pelo npm, não por pessoas.</p>
+        <figure class="code" data-lang="text"><figcaption><span class="tipo">arquivo</span><span class="nome">.prettierignore</span><button class="copiar" type="button" aria-label="Copiar: .prettierignore">Copiar</button></figcaption><pre><code>package-lock.json</code></pre></figure>
+      </li>
+      <li><p>Crie os scripts: <code class="i">format</code> formata tudo, <code class="i">format:check</code> só confere (é o que o CI vai usar) e <code class="i">lint:fix</code> deixa o ESLint corrigir o que ele souber corrigir sozinho.</p>
+        <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>npm pkg set scripts.format="prettier --write ."
+npm pkg set scripts.format:check="prettier --check ."
+npm pkg set scripts.lint:fix="eslint . --fix"</code></pre></figure>
+        <figure class="code ref" data-lang="json"><figcaption><span class="tipo">referência</span><span class="nome">package.json depois dos comandos (as versões podem ser outras)</span></figcaption><pre><code>{
+  "name": "ci-exemplo",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.14.0",
+    "prettier": "3.10.0"
+  }
+}</code></pre></figure>
+      </li>
+      <li><p>Veja o Prettier em ação. Substitua <b>temporariamente</b> todo o conteúdo de <code class="i">soma.js</code> por esta versão bagunçada e confira a formatação:</p>
+        <figure class="code" data-lang="js"><figcaption><span class="tipo">arquivo</span><span class="nome">soma.js · versão bagunçada, só para o teste</span><button class="copiar" type="button" aria-label="Copiar: soma.js · versão bagunçada, só para o teste">Copiar</button></figcaption><pre><code>export function soma(a,b){return a+b}</code></pre></figure>
+        <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>npm run format:check</code></pre></figure>
+        <figure class="code saida" data-lang="text"><figcaption><span class="tipo">saída esperada</span><span class="nome"></span></figcaption><pre><code>&gt; format:check
+&gt; prettier --check .
+
+Checking formatting...
+[warn] soma.js
+[warn] Code style issues found in the above file. Run Prettier with --write to fix.</code></pre></figure>
+        <p>Agora deixe o Prettier formatar:</p>
+        <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>npm run format</code></pre></figure>
+        <figure class="code saida" data-lang="text"><figcaption><span class="tipo">saída esperada</span><span class="nome"></span></figcaption><pre><code>&gt; format
+&gt; prettier --write .
+
+.github/workflows/ci.yml 11ms (unchanged)
+.prettierrc.json 19ms (unchanged)
+eslint.config.js 9ms (unchanged)
+package.json 2ms (unchanged)
+README.md 28ms (unchanged)
+soma.js 6ms
+soma.test.js 11ms (unchanged)</code></pre></figure>
+        <p>Abra o <code class="i">soma.js</code>: ele voltou exatamente ao formato original. Só ele aparece sem <code class="i">(unchanged)</code> na lista, porque foi o único arquivo alterado.</p>
+      </li>
+      <li><p>Substitua todo o <code class="i">eslint.config.js</code> pela versão sugerida, com as regras extras e o <code class="i">eslint-config-prettier</code> por último, para que ele desligue qualquer regra de estilo que venha antes:</p>
+        <figure class="code" data-lang="js"><figcaption><span class="tipo">arquivo</span><span class="nome">eslint.config.js · versão sugerida</span><button class="copiar" type="button" aria-label="Copiar: eslint.config.js · versão sugerida">Copiar</button></figcaption><pre><code>import js from '@eslint/js';
+import globals from 'globals';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
+
+export default [
+  js.configs.recommended,
+  {
+    languageOptions: {
+      globals: globals.node,
+    },
+    rules: {
+      eqeqeq: 'error',
+      'no-var': 'error',
+      'prefer-const': 'error',
+      'no-console': 'warn',
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    },
+  },
+  eslintConfigPrettier,
+];</code></pre></figure>
+      </li>
+      <li><p>Teste as regras novas. Acrescente esta função no final de <code class="i">soma.js</code>, deixando uma linha em branco antes dela, e rode o lint:</p>
+        <figure class="code" data-lang="js"><figcaption><span class="tipo">trecho</span><span class="nome">soma.js · acrescente no final</span><button class="copiar" type="button" aria-label="Copiar: soma.js · acrescente no final">Copiar</button></figcaption><pre><code>export function ehPar(n) {
+  var resto = n % 2;
+  return resto == 0;
+}</code></pre></figure>
+        <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>npm run lint</code></pre></figure>
+        <figure class="code saida" data-lang="text"><figcaption><span class="tipo">saída esperada (trecho)</span><span class="nome"></span></figcaption><pre><code>/workspaces/ci-exemplo/soma.js
+  6:3   error  Unexpected var, use let or const instead  no-var
+  7:16  error  Expected '===' and instead saw '=='       eqeqeq
+
+✖ 2 problems (2 errors, 0 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.</code></pre></figure>
+        <p>Peça ao ESLint para corrigir o que for automático:</p>
+        <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>npm run lint:fix</code></pre></figure>
+        <figure class="code saida" data-lang="text"><figcaption><span class="tipo">saída esperada (trecho)</span><span class="nome"></span></figcaption><pre><code>/workspaces/ci-exemplo/soma.js
+  7:16  error  Expected '===' and instead saw '=='  eqeqeq
+
+✖ 1 problem (1 error, 0 warnings)</code></pre></figure>
+        <p>O ESLint trocou <code class="i">var</code> por <code class="i">const</code> sozinho, mas não troca <code class="i">==</code> por <code class="i">===</code>, porque isso pode mudar o comportamento do programa: essa decisão é sua. Terminado o teste, <b>apague a função</b> <code class="i">ehPar</code>.</p>
+      </li>
+      <li><p><b>Recomendado:</b> configure o VS Code (e o Codespaces) para formatar ao salvar e aplicar as correções do ESLint. O primeiro arquivo faz o editor sugerir as duas extensões; aceite a instalação quando ele perguntar.</p>
+        <figure class="code" data-lang="json"><figcaption><span class="tipo">arquivo</span><span class="nome">.vscode/extensions.json</span><button class="copiar" type="button" aria-label="Copiar: .vscode/extensions.json">Copiar</button></figcaption><pre><code>{
+  "recommendations": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+}</code></pre></figure>
+        <figure class="code" data-lang="json"><figcaption><span class="tipo">arquivo</span><span class="nome">.vscode/settings.json</span><button class="copiar" type="button" aria-label="Copiar: .vscode/settings.json">Copiar</button></figcaption><pre><code>{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}</code></pre></figure>
+      </li>
+      <li><p>Confira tudo de uma vez. Os três comandos devem terminar sem erro:</p>
+        <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>npm run format
+npm run lint
+npm test</code></pre></figure>
+      </li>
+      <li><p>Inclua a verificação de formatação no CI. Substitua todo o <code class="i">ci.yml</code>; a única novidade é o último step do job <code class="i">lint</code>:</p>
+        <figure class="code" data-lang="yaml"><figcaption><span class="tipo">arquivo</span><span class="nome">.github/workflows/ci.yml</span><button class="copiar" type="button" aria-label="Copiar: .github/workflows/ci.yml">Copiar</button></figcaption><pre><code>name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+
+  testes:
+    needs: lint
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm test</code></pre></figure>
+      </li>
+      <li><p>Envie tudo:</p>
+        <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>git add .
+git commit -m "Adiciona Prettier e regras extras do ESLint"
+git push</code></pre></figure>
+      </li>
+      <li><p>Na aba Actions, abra o job <b>lint</b> e veja o step novo <b>Run npm run format:check</b>, com a mensagem <code class="i">All matched files use Prettier code style!</code>.</p></li>
+    </ol>
+    <label class="feito"><input type="checkbox" data-done="prettier" id="feito-prettier"> Concluí a atividade 8</label>
+  </div>
+  <div class="bloco dica">
+    <p class="rot">Dica</p>
+    <p>A verificação de formatação ficou dentro do job <code class="i">lint</code>, como um step a mais. Assim os nomes dos jobs não mudam, e o ruleset da próxima seção continua valendo sem ajustes.</p>
+  </div>
+  <div class="bloco atencao">
+    <p class="rot">Atenção</p>
+    <p>Atualizar o Prettier para uma versão nova pode reformatar vários arquivos de uma vez. Faça essa atualização num PR separado, só com ela, para não misturar mudanças de formatação com mudanças de código.</p>
+  </div>
+</section>
+
+<!-- ============================================================ 09 -->
+<section class="sec" id="s09">
+  <header class="sec-head"><span class="sec-num">09</span><div><p class="kicker"><span class="nivel n-inter">Desafio intermediário</span> 10 min</p><h2>Proteger a main</h2></div></header>
   <div class="bloco">
     <p class="rot">Entenda</p>
     <p>Até aqui, nada impedia um push direto na <code class="i">main</code> com testes quebrados. Um <b>ruleset</b> obriga que toda mudança na <code class="i">main</code> chegue por pull request e só entre com os checks verdes. Depois desta seção, <b>todas</b> as alterações passam pelo ciclo de PR.</p>
   </div>
   <div class="atividade">
-    <div class="ativ-tit"><span class="selo">Atividade 8</span><h3>Criar o ruleset e testar</h3></div>
+    <div class="ativ-tit"><span class="selo">Atividade 9</span><h3>Criar o ruleset e testar</h3></div>
     <ol class="passos">
       <li><p>No repositório, abra <span class="ui">Settings</span> › <span class="ui">Rules</span> › <span class="ui">Rulesets</span> › <span class="ui">New ruleset</span> › <span class="ui">New branch ruleset</span>.</p></li>
       <li><p>Em <span class="ui">Ruleset Name</span>, digite <code class="i">proteger-main</code>. Em <span class="ui">Enforcement status</span>, escolha <span class="ui">Active</span>.</p></li>
@@ -693,7 +929,7 @@ git push</code></pre></figure>
         <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>git reset --hard origin/main</code></pre></figure>
       </li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s08" id="feito-s08"> Concluí a atividade 8</label>
+    <label class="feito"><input type="checkbox" data-done="proteger" id="feito-proteger"> Concluí a atividade 9</label>
   </div>
   <div class="bloco">
     <p class="rot">Daqui em diante: o ciclo do PR</p>
@@ -701,8 +937,9 @@ git push</code></pre></figure>
     <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome">antes de alterar</span><button class="copiar" type="button" aria-label="Copiar: antes de alterar">Copiar</button></figcaption><pre><code>git switch main
 git pull
 git switch -c nome-da-branch</code></pre></figure>
-    <p>Faça as alterações nos arquivos e então:</p>
-    <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome">depois de alterar</span><button class="copiar" type="button" aria-label="Copiar: depois de alterar">Copiar</button></figcaption><pre><code>git add .
+    <p>Faça as alterações nos arquivos e então formate, faça o commit e abra o PR:</p>
+    <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome">depois de alterar</span><button class="copiar" type="button" aria-label="Copiar: depois de alterar">Copiar</button></figcaption><pre><code>npm run format
+git add .
 git commit -m "Descreva a mudança"
 git push -u origin nome-da-branch
 gh pr create --fill</code></pre></figure>
@@ -714,15 +951,15 @@ gh pr create --fill</code></pre></figure>
   </div>
 </section>
 
-<!-- ============================================================ 09 -->
-<section class="sec" id="s09">
-  <header class="sec-head"><span class="sec-num">09</span><div><p class="kicker"><span class="nivel n-extra">Extra</span> 10 min</p><h2>Segredos e variáveis</h2></div></header>
+<!-- ============================================================ 10 -->
+<section class="sec" id="s10">
+  <header class="sec-head"><span class="sec-num">10</span><div><p class="kicker"><span class="nivel n-extra">Extra</span> 10 min</p><h2>Segredos e variáveis</h2></div></header>
   <div class="bloco">
     <p class="rot">Entenda</p>
     <p>Senhas e tokens nunca vão no código. O GitHub guarda <b>secrets</b> criptografados e os entrega ao workflow na hora da execução; se algum aparecer no log, é trocado por <code class="i">***</code>. Para configurações que não são sigilosas, como o nome de um ambiente, use <b>variables</b>. O gatilho <code class="i">workflow_dispatch</code> cria um botão para rodar o workflow manualmente.</p>
   </div>
   <div class="atividade">
-    <div class="ativ-tit"><span class="selo">Atividade 9</span><h3>Criar um segredo e ver o mascaramento</h3></div>
+    <div class="ativ-tit"><span class="selo">Atividade 10</span><h3>Criar um segredo e ver o mascaramento</h3></div>
     <ol class="passos">
       <li><p>No repositório, abra <span class="ui">Settings</span> › <span class="ui">Secrets and variables</span> › <span class="ui">Actions</span>. Na aba <span class="ui">Secrets</span>, clique em <span class="ui">New repository secret</span>: nome <code class="i">MEU_SEGREDO</code>, valor <code class="i">abacaxi-2026</code>. Clique em <span class="ui">Add secret</span>.</p></li>
       <li><p>Na aba <span class="ui">Variables</span>, clique em <span class="ui">New repository variable</span>: nome <code class="i">AMBIENTE</code>, valor <code class="i">homologacao</code>. Clique em <span class="ui">Add variable</span>.</p></li>
@@ -765,7 +1002,7 @@ O segredo é ***
 Tamanho do segredo: 12 caracteres</code></pre></figure>
       </li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s09" id="feito-s09"> Concluí a atividade 9</label>
+    <label class="feito"><input type="checkbox" data-done="segredos" id="feito-segredos"> Concluí a atividade 10</label>
   </div>
   <div class="bloco atencao">
     <p class="rot">Atenção</p>
@@ -777,15 +1014,15 @@ Tamanho do segredo: 12 caracteres</code></pre></figure>
   </div>
 </section>
 
-<!-- ============================================================ 10 -->
-<section class="sec" id="s10">
-  <header class="sec-head"><span class="sec-num">10</span><div><p class="kicker"><span class="nivel n-avanc">Desafio avançado</span> 15 min</p><h2>Deploy contínuo no GitHub Pages</h2></div></header>
+<!-- ============================================================ 11 -->
+<section class="sec" id="s11">
+  <header class="sec-head"><span class="sec-num">11</span><div><p class="kicker"><span class="nivel n-avanc">Desafio avançado</span> 15 min</p><h2>Deploy contínuo no GitHub Pages</h2></div></header>
   <div class="bloco">
     <p class="rot">Entenda</p>
     <p>Agora o “D” de CD: a cada merge na <code class="i">main</code>, o site é publicado sozinho. O workflow tem dois jobs. O <b>build</b> empacota a pasta <code class="i">site/</code> como artefato; o <b>deploy</b> publica esse artefato no GitHub Pages. O bloco <code class="i">permissions</code> dá ao token só o necessário para publicar, e o <code class="i">environment</code> registra cada implantação com a URL do site.</p>
   </div>
   <div class="atividade">
-    <div class="ativ-tit"><span class="selo">Atividade 10</span><h3>Publicar o site pelo pipeline</h3></div>
+    <div class="ativ-tit"><span class="selo">Atividade 11</span><h3>Publicar o site pelo pipeline</h3></div>
     <ol class="passos">
       <li><p>Ative o Pages com o Actions: <span class="ui">Settings</span> › <span class="ui">Pages</span> › <span class="ui">Build and deployment</span> › <span class="ui">Source</span>: <span class="ui">GitHub Actions</span>.</p></li>
       <li><p>Comece o ciclo do PR e crie a pasta do site:</p>
@@ -795,18 +1032,21 @@ git switch -c pages
 mkdir site</code></pre></figure>
       </li>
       <li><p>Crie a página. Ela exibe o badge do CI, então mostra o status do projeto em tempo real:</p>
-        <figure class="code" data-lang="html"><figcaption><span class="tipo">arquivo</span><span class="nome">site/index.html</span><button class="copiar" type="button" aria-label="Copiar: site/index.html">Copiar</button></figcaption><pre><code>&lt;!DOCTYPE html&gt;
+        <figure class="code" data-lang="html"><figcaption><span class="tipo">arquivo</span><span class="nome">site/index.html</span><button class="copiar" type="button" aria-label="Copiar: site/index.html">Copiar</button></figcaption><pre><code>&lt;!doctype html&gt;
 &lt;html lang="pt-BR"&gt;
-&lt;head&gt;
-  &lt;meta charset="utf-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-  &lt;title&gt;ci-exemplo&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;Publicado pelo GitHub Actions&lt;/h1&gt;
-  &lt;p&gt;Esta página é implantada automaticamente a cada merge na main.&lt;/p&gt;
-  &lt;img src="https://github.com/SEU-USUARIO/ci-exemplo/actions/workflows/ci.yml/badge.svg" alt="Status do CI"&gt;
-&lt;/body&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
+    &lt;title&gt;ci-exemplo&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Publicado pelo GitHub Actions&lt;/h1&gt;
+    &lt;p&gt;Esta página é implantada automaticamente a cada merge na main.&lt;/p&gt;
+    &lt;img
+      src="https://github.com/SEU-USUARIO/ci-exemplo/actions/workflows/ci.yml/badge.svg"
+      alt="Status do CI"
+    /&gt;
+  &lt;/body&gt;
 &lt;/html&gt;</code></pre></figure>
       </li>
       <li><p>Crie o workflow de deploy:</p>
@@ -854,17 +1094,17 @@ gh pr create --fill</code></pre></figure>
       <li><p>Quando os checks ficarem verdes, faça o merge. O merge é um push na <code class="i">main</code>, que dispara o workflow <b>Pages</b>. Acompanhe na aba Actions: ao final, o job <b>deploy</b> mostra a URL do site.</p></li>
       <li><p>Abra o site: <a data-href="https://SEU-USUARIO.github.io/ci-exemplo/" data-show href="https://SEU-USUARIO.github.io/ci-exemplo/">SEU-USUARIO.github.io/ci-exemplo/</a>. A primeira publicação pode levar um ou dois minutos para aparecer.</p></li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s10" id="feito-s10"> Concluí a atividade 10</label>
+    <label class="feito"><input type="checkbox" data-done="pages" id="feito-pages"> Concluí a atividade 11</label>
   </div>
   <div class="bloco pensar">
     <p class="rot">Para pensar</p>
-    <p>O workflow <b>Pages</b> não espera o CI. Mesmo assim, código com teste quebrado não chega ao site. Por quê? Dica: pense em como as mudanças entram na <code class="i">main</code> desde a seção 08.</p>
+    <p>O workflow <b>Pages</b> não espera o CI. Mesmo assim, código com teste quebrado não chega ao site. Por quê? Dica: pense em como as mudanças entram na <code class="i">main</code> desde a seção 09.</p>
   </div>
 </section>
 
-<!-- ============================================================ 11 -->
-<section class="sec" id="s11">
-  <header class="sec-head"><span class="sec-num">11</span><div><p class="kicker"><span class="nivel n-extra">Extra</span> 15 min</p><h2>Endurecer o pipeline</h2></div></header>
+<!-- ============================================================ 12 -->
+<section class="sec" id="s12">
+  <header class="sec-head"><span class="sec-num">12</span><div><p class="kicker"><span class="nivel n-extra">Extra</span> 15 min</p><h2>Endurecer o pipeline</h2></div></header>
   <div class="bloco">
     <p class="rot">Entenda</p>
     <p>Quatro ajustes que todo pipeline de produção deveria ter:</p>
@@ -877,7 +1117,7 @@ gh pr create --fill</code></pre></figure>
     <p>De bônus, <code class="i">fail-fast: false</code> deixa as outras combinações da matriz terminarem mesmo se uma falhar, para você ver o quadro completo.</p>
   </div>
   <div class="atividade">
-    <div class="ativ-tit"><span class="selo">Atividade 11</span><h3>Versão final do CI e Dependabot</h3></div>
+    <div class="ativ-tit"><span class="selo">Atividade 12</span><h3>Versão final do CI e Dependabot</h3></div>
     <ol class="passos">
       <li><p>Comece o ciclo do PR:</p>
         <figure class="code" data-lang="sh"><figcaption><span class="tipo">terminal</span><span class="nome"></span><button class="copiar" type="button" aria-label="Copiar: comandos de terminal">Copiar</button></figcaption><pre><code>git switch main
@@ -911,6 +1151,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      - run: npm run format:check
 
   testes:
     needs: lint
@@ -957,7 +1198,7 @@ gh pr create --fill</code></pre></figure>
       </li>
       <li><p>Depois do merge, veja o Dependabot em <span class="ui">Insights</span> › <span class="ui">Dependency graph</span> › <span class="ui">Dependabot</span>. Quando houver atualização, ele abre um PR, e o seu CI testa a atualização antes de você aceitar.</p></li>
     </ol>
-    <label class="feito"><input type="checkbox" data-done="s11" id="feito-s11"> Concluí a atividade 11</label>
+    <label class="feito"><input type="checkbox" data-done="endurecer" id="feito-endurecer"> Concluí a atividade 12</label>
   </div>
   <div class="bloco dica">
     <p class="rot">Dica</p>
@@ -969,9 +1210,9 @@ gh pr create --fill</code></pre></figure>
   </div>
 </section>
 
-<!-- ============================================================ 12 -->
-<section class="sec" id="s12">
-  <header class="sec-head"><span class="sec-num">12</span><div><p class="kicker"><span class="nivel n-ref">Consulta</span></p><h2>Erros comuns</h2></div></header>
+<!-- ============================================================ 13 -->
+<section class="sec" id="s13">
+  <header class="sec-head"><span class="sec-num">13</span><div><p class="kicker"><span class="nivel n-ref">Consulta</span></p><h2>Erros comuns</h2></div></header>
   <p>Leia primeiro a mensagem de erro no log do step que falhou (aba Actions › execução › job › step com ✗). Depois procure aqui:</p>
   <div class="tabela">
     <table>
@@ -980,23 +1221,26 @@ gh pr create --fill</code></pre></figure>
       <tr><td>“Invalid workflow file” ou “mapping values are not allowed here”</td><td>YAML inválido: tab na indentação, ou um valor com dois-pontos seguido de espaço sem aspas</td><td>Indente só com espaços; coloque o valor entre aspas ou use <code class="i">run: |</code></td></tr>
       <tr><td><code class="i">npm ci</code>: “can only install with an existing package-lock.json”</td><td>O lockfile não foi enviado</td><td>Rode <code class="i">npm install</code>, faça commit do <code class="i">package-lock.json</code> e push</td></tr>
       <tr><td><code class="i">setup-node</code>: “Dependencies lock file is not found”</td><td><code class="i">cache: npm</code> sem lockfile no repositório</td><td>A mesma solução da linha anterior</td></tr>
-      <tr><td>Push recusado com “GH013: Repository rule violations”</td><td>A <code class="i">main</code> está protegida pelo ruleset</td><td>Crie uma branch e abra um PR (ciclo da seção 08)</td></tr>
+      <tr><td>Push recusado com “GH013: Repository rule violations”</td><td>A <code class="i">main</code> está protegida pelo ruleset</td><td>Crie uma branch e abra um PR (ciclo da seção 09)</td></tr>
       <tr><td>PR parado em “Expected — Waiting for status to be reported”</td><td>O ruleset exige um check que não existe mais, porque o job foi renomeado ou a matriz mudou</td><td>Edite o ruleset e selecione os nomes atuais dos jobs</td></tr>
       <tr><td>Push recusado: “refusing to allow … to create or update workflow … without <code class="i">workflow</code> scope”</td><td>O token usado pelo Git não tem permissão para alterar workflows</td><td>Use o Codespaces, rode <code class="i">gh auth refresh -s workflow</code>, ou crie o arquivo pelo site do GitHub</td></tr>
       <tr><td>Deploy do Pages falha com erro 404 ou pedindo para habilitar o Pages</td><td>O Pages não está configurado para usar o GitHub Actions</td><td><span class="ui">Settings</span> › <span class="ui">Pages</span> › <span class="ui">Source</span>: <span class="ui">GitHub Actions</span>; depois <span class="ui">Re-run all jobs</span></td></tr>
       <tr><td>O botão <span class="ui">Run workflow</span> não aparece</td><td>O workflow com <code class="i">workflow_dispatch</code> ainda não está na <code class="i">main</code></td><td>Faça o merge do PR primeiro</td></tr>
+      <tr><td>“Code style issues found … Run Prettier with --write to fix.”</td><td>Algum arquivo não está no formato do Prettier</td><td>Rode <code class="i">npm run format</code>, faça commit e push</td></tr>
+      <tr><td>Lint: “Unexpected var” ou “Expected '===' and instead saw '=='”</td><td>Regras sugeridas na seção 08</td><td><code class="i">npm run lint:fix</code> resolve o <code class="i">var</code>; o <code class="i">==</code> você troca à mão</td></tr>
       <tr><td>Lint: “is assigned a value but never used”</td><td>Uma variável foi criada e nunca usada</td><td>Apague a variável ou use-a</td></tr>
     </table>
   </div>
 </section>
 
-<!-- ============================================================ 13 -->
-<section class="sec" id="s13">
-  <header class="sec-head"><span class="sec-num">13</span><div><p class="kicker"><span class="nivel n-ref">Fechamento</span></p><h2>Checklist e entrega</h2></div></header>
+<!-- ============================================================ 14 -->
+<section class="sec" id="s14">
+  <header class="sec-head"><span class="sec-num">14</span><div><p class="kicker"><span class="nivel n-ref">Fechamento</span></p><h2>Checklist e entrega</h2></div></header>
   <p>Confira cada item no seu repositório antes de entregar:</p>
   <ul class="checklist">
     <li><label><input type="checkbox" data-check="badge" id="ck-badge"> O README mostra o badge <b>CI passing</b>.</label></li>
     <li><label><input type="checkbox" data-check="jobs" id="ck-jobs"> A execução mais recente do CI tem 5 jobs verdes: lint e 4 de testes.</label></li>
+    <li><label><input type="checkbox" data-check="formato" id="ck-formato"> O job <b>lint</b> também confere a formatação com <code class="i">npm run format:check</code>.</label></li>
     <li><label><input type="checkbox" data-check="pr" id="ck-pr"> O PR da seção 04 mostra o check vermelho e, depois da correção, o verde.</label></li>
     <li><label><input type="checkbox" data-check="ruleset" id="ck-ruleset"> O ruleset está ativo: um push direto na <code class="i">main</code> é recusado.</label></li>
     <li><label><input type="checkbox" data-check="segredo" id="ck-segredo"> O workflow Segredos rodou e o log mostra <code class="i">***</code>.</label></li>
@@ -1032,6 +1276,15 @@ Site: https://SEU-USUARIO.github.io/ci-exemplo/</code></pre></figure>
       state.check = saved.check || {};
     }
   } catch (e) { /* sem armazenamento: segue sem lembrar */ }
+  /* progresso salvo antes da seção de Prettier usava o número da seção */
+  var LEGADO = { s01: 'repo', s02: 'projeto', s03: 'workflow', s04: 'pr', s05: 'badge', s06: 'matriz',
+                 s07: 'lint', s08: 'proteger', s09: 'segredos', s10: 'pages', s11: 'endurecer' };
+  Object.keys(LEGADO).forEach(function (k) {
+    if (Object.prototype.hasOwnProperty.call(state.done, k)) {
+      if (state.done[k]) state.done[LEGADO[k]] = true;
+      delete state.done[k];
+    }
+  });
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
   function valid(u) { return /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/.test(u); }
   function user() { return valid(state.user) ? state.user : PH; }
@@ -1126,7 +1379,8 @@ Site: https://SEU-USUARIO.github.io/ci-exemplo/</code></pre></figure>
       var id = i.getAttribute('data-done');
       i.checked = !!state.done[id];
       if (i.checked) n++;
-      var link = document.querySelector('nav a[data-sec="' + id + '"]');
+      var sec = i.closest('section.sec');
+      var link = sec ? document.querySelector('nav a[data-sec="' + sec.id + '"]') : null;
       if (link) link.classList.toggle('feito', i.checked);
       var box = i.closest('.atividade');
       if (box) box.classList.toggle('concluida', i.checked);
